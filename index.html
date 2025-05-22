@@ -1,1 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>3-City Live Webcam Rotation</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      transform: scale(1.2);
+      transform-origin: center center;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="liveCam" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
+  <script>
+    const streams = [
+      // Nantucket
+      "https://www.youtube.com/embed/nyjd_019-aw?autoplay=1&mute=1",
+      "https://www.youtube.com/embed/K52wK2PO04A?autoplay=1&mute=1",
+      "https://www.youtube.com/embed/4S0X7Zl7-8M?autoplay=1&mute=1",
+      // Fort Worth
+      "https://www.youtube.com/embed/dg0UHfYVros?autoplay=1&mute=1",
+      "https://www.youtube.com/embed/PI31RLpJHmc?autoplay=1&mute=1",
+      "https://www.youtube.com/embed/5HzjsH9QUuI?autoplay=1&mute=1",
+      // Miami Beach
+      "https://www.youtube.com/embed/IeCVql74ZJ0?autoplay=1&mute=1",
+      "https://www.youtube.com/embed/kwk3-KWmnrk?autoplay=1&mute=1",
+      "https://www.youtube.com/embed/av1sQNDXnD8?autoplay=1&mute=1",
+      "https://www.youtube.com/embed/DxZziUUr6CY?autoplay=1&mute=1",
+      "https://www.youtube.com/embed/7i8ARjIeM2k?autoplay=1&mute=1"
+      // Add the remaining stream URLs here
+    ];
+
+    let currentIndex = 0;
+    const iframe = document.getElementById('liveCam');
+
+    function rotateStream() {
+      iframe.src = streams[currentIndex];
+      currentIndex = (currentIndex + 1) % streams.length;
+    }
+
+    rotateStream();
+    setInterval(rotateStream, 10000); // Rotate every 10 seconds
+  </script>
+</body>
+</html>
