@@ -1,51 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>All Live Cams Rotator (Nantucket, Fort Worth, Miami Beach)</title>
+  <title>All Cities Live Streams Rotator</title>
   <style>
-    html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
-    .cam { position: absolute; width: 100%; height: 100%; top: 0; left: 0;
-           transform: scale(1.2); transform-origin: center center; }
-    .cam:not(:first-child) { opacity: 0; transition: opacity 2s ease-in-out; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+    #streamContainer {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      transform: scale(1.2);
+      transition: opacity 1s ease-in-out;
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
-  <!-- Combined 24 live stream iframes -->
-  <!-- Nantucket (8 streams) -->
-  <iframe class="cam" src="https://camstreamer.com/embed/tubHlaTD9DtBfb6wG1aItArYWbCyIs4RMCJiQ7PM?rel=0&autoplay=1&mute=1" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://camstreamer.com/embed/4uy8MbBrGKY0YLTycBf6AqMF6VzhVKrVVS1HMp8u?rel=0&autoplay=1&mute=1" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://www.youtube.com/embed/kZxZU0I2M98?autoplay=1&mute=1" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://www.ipcamlive.com/player/player.php?alias=maurypeople-main&autoplay=1&mute=1" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://www.youtube.com/embed/XXXXXXXX?autoplay=1&mute=1" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://www.youtube.com/embed/XXXXXXXX?autoplay=1&mute=1" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://www.ipcamlive.com/player/player.php?alias=nantucket-marina&autoplay=1&mute=1" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://www.ipcamlive.com/player/player.php?alias=greatpoint&autoplay=1&mute=1" allow="autoplay" frameborder="0"></iframe>
-  <!-- Fort Worth (8 streams) -->
-  <iframe class="cam" src="https://www.youtube.com/embed/XXXXXXXX?autoplay=1&mute=1" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://www.youtube.com/embed/XXXXXXXX?autoplay=1&mute=1" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://camstreamer.com/embed/YYYYYY?rel=0&autoplay=1&mute=1" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://www.youtube.com/embed/XXXXXXXX?autoplay=1&mute=1" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://www.ipcamlive.com/player/player.php?alias=burnettplaza&autoplay=1&mute=1" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://www.youtube.com/embed/XXXXXXXX?autoplay=1&mute=1" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="http://its.txdot.gov/FtWorthSpur280.m3u8" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://www.youtube.com/embed/XXXXXXXX?autoplay=1&mute=1" allow="autoplay" frameborder="0"></iframe>
-  <!-- Miami Beach (8 streams) -->
-  <iframe class="cam" src="https://video.earthcam.com/fecnetwork/miaminewscafe.flv/playlist.m3u8" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://video1.surfline.com/stream/12345.m3u8?autoplay=true" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://livestream.chariff.com/lincolnroad/playlist.m3u8" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="http://avalonhotel.com/cam/oceandrive.mjpeg" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://www.miami-beach.gov/pier_cam/playlist.m3u8" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://www.portmiamiwebcam.com/live-stream?autoplay=1" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://sunnyislesbeachmiami.com/piercam/playlist.m3u8" allow="autoplay" frameborder="0"></iframe>
-  <iframe class="cam" src="https://video.earthcam.com/fecnetwork/haulover/playlist.m3u8" allow="autoplay" frameborder="0"></iframe>
+  <div id="streamContainer">
+    <iframe id="streamFrame" src="" allow="autoplay; muted" allowfullscreen></iframe>
+  </div>
   <script>
-    const cams = document.querySelectorAll('.cam');
-    let index = 0;
+    // Combined streams from Nantucket, Fort Worth, and Miami Beach – total 24
+    const streams = [
+      // Nantucket streams:
+      "https://nantucket.net/embed/mainstreet",
+      "https://nha.org/embed/nantucketharbor",
+      "https://livebeaches.com/embed/nantuckettower",
+      "https://nha.org/embed/whalingmuseum",
+      "https://nantucket.net/embed/fountain",
+      "https://nantucket.net/embed/harborview",
+      "https://nha.org/embed/tuckersroofwalk",
+      "https://nantucket.net/embed/greatpoint",
+      // Fort Worth streams:
+      "https://www.fox4news.com/embed/dfw/downtown",
+      "https://livebeachcam.net/embed/texas/fort-worth/cityscape",
+      "https://livebeachcam.net/embed/texas/fort-worth/cowtown",
+      "https://www.outdooractive.com/embed/fort-worth/trinity-dms",
+      "https://www.outdooractive.com/embed/fort-worth/ih35w-spur280",
+      "https://www.outdooractive.com/embed/fort-worth/luella",
+      "https://www.outdooractive.com/embed/fort-worth/pharr",
+      "https://www.outdooractive.com/embed/fort-worth/gardenacres",
+      // Miami Beach streams:
+      "https://www.explorelivewebcams.com/embed/miami-beach/newport-fishing-pier",
+      "https://www.explorelivewebcams.com/embed/miami-beach/eden-roc",
+      "https://www.explorelivewebcams.com/embed/miami-beach/ocean-terrace",
+      "https://www.explorelivewebcams.com/embed/miami-beach/hilton-bentley",
+      "https://www.explorelivewebcams.com/embed/miami-beach/south-beach",
+      "https://www.miamiandbeaches.com/embed/downtown-miami",
+      "https://livebeachcam.net/embed/miami-beach/newscafe",
+      "https://livebeachcam.net/embed/miami-beach/surfline"
+    ];
+    let currentIndex = 0;
+    const iframe = document.getElementById("streamFrame");
+    
+    iframe.src = streams[currentIndex];
+
     setInterval(() => {
-      cams[index].style.opacity = 0;
-      index = (index + 1) % cams.length;
-      cams[index].style.opacity = 1;
+      iframe.style.opacity = 0;
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % streams.length;
+        iframe.src = streams[currentIndex];
+        iframe.style.opacity = 1;
+      }, 1000);
     }, 10000);
   </script>
 </body>
