@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>24-Camera Live Rotation</title>
+  <title>WidgetWall 24-Cam Rotation</title>
   <style>
     html, body {
       margin: 0;
@@ -12,37 +12,68 @@
       height: 100vh;
       overflow: hidden;
     }
-    iframe {
+
+    .iframe-wrapper {
       width: 100%;
       height: 100%;
-      transform: scale(1.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    iframe {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      transform: translate(-50%, -50%) scale(1.2);
       transform-origin: center center;
       border: none;
     }
   </style>
 </head>
 <body>
-  <iframe id="liveCam" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+  <div class="iframe-wrapper">
+    <iframe
+      id="liveCam"
+      src=""
+      allow="autoplay; fullscreen"
+      allowfullscreen
+      muted
+    ></iframe>
+  </div>
 
   <script>
     const streams = [
-      // Replace these URLs with your 24 live stream URLs
-      "https://example.com/stream1",
-      "https://example.com/stream2",
-      // ...
-      "https://example.com/stream24"
+      // 🔁 Replace these with real, embeddable livestream *embed* URLs (YouTube embeds, EarthCam embeds, etc.)
+      // These are placeholders
+      "https://www.youtube.com/embed/KW7NyTgZwyA?autoplay=1&mute=1&controls=0&rel=0",
+      "https://www.youtube.com/embed/nyjd_019-aw?autoplay=1&mute=1&controls=0&rel=0",
+      "https://www.youtube.com/embed/4S0X7Zl7-8M?autoplay=1&mute=1&controls=0&rel=0",
+      "https://www.youtube.com/embed/K52wK2PO04A?autoplay=1&mute=1&controls=0&rel=0",
+      "https://www.youtube.com/embed/IeCVql74ZJ0?autoplay=1&mute=1&controls=0&rel=0",
+      "https://www.youtube.com/embed/kwk3-KWmnrk?autoplay=1&mute=1&controls=0&rel=0",
+      "https://www.youtube.com/embed/av1sQNDXnD8?autoplay=1&mute=1&controls=0&rel=0",
+      "https://www.youtube.com/embed/DxZziUUr6CY?autoplay=1&mute=1&controls=0&rel=0",
+      "https://www.youtube.com/embed/7i8ARjIeM2k?autoplay=1&mute=1&controls=0&rel=0",
+      "https://www.youtube.com/embed/3FpFRzGZdjU?autoplay=1&mute=1&controls=0&rel=0",
+      "https://www.youtube.com/embed/xS0F00N91i0?autoplay=1&mute=1&controls=0&rel=0",
+      "https://www.youtube.com/embed/pGe3pA0TGzA?autoplay=1&mute=1&controls=0&rel=0",
+      "https://www.youtube.com/embed/live_stream?channel=TrinityMetroTX&autoplay=1&mute=1",
+      "https://www.youtube.com/embed/live_stream?channel=FOX4Dallas&autoplay=1&mute=1",
+      // Add remaining 10 here...
     ];
 
-    let currentIndex = 0;
-    const iframe = document.getElementById('liveCam');
+    let index = 0;
+    const iframe = document.getElementById("liveCam");
 
     function rotateStream() {
-      iframe.src = streams[currentIndex];
-      currentIndex = (currentIndex + 1) % streams.length;
+      iframe.src = streams[index];
+      index = (index + 1) % streams.length;
     }
 
     rotateStream();
-    setInterval(rotateStream, 10000); // Rotate every 10 seconds
+    setInterval(rotateStream, 10000); // Every 10 seconds
   </script>
 </body>
 </html>
