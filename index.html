@@ -21,19 +21,19 @@
       transform: scale(1.2);
       transform-origin: center center;
       opacity: 0;
-      transition: opacity 2s ease-in-out;
+      transition: opacity 1.5s ease-in-out;
       border: none;
       z-index: 0;
     }
-    .active {
+    iframe.active {
       opacity: 1;
       z-index: 1;
     }
   </style>
 </head>
 <body>
-  <!-- ✅ Confirmed embeddable Nantucket livestreams -->
-  <iframe class="cam active" src="https://camstreamer.com/embed/tubHlaTD9DtBfb6wG1aItArYWbCyIs4RMCJiQ7PM?autoplay=1&mute=1" allow="autoplay" allowfullscreen></iframe>
+  <!-- ✅ Confirmed Nantucket embeds -->
+  <iframe class="cam" src="https://camstreamer.com/embed/tubHlaTD9DtBfb6wG1aItArYWbCyIs4RMCJiQ7PM?autoplay=1&mute=1" allow="autoplay" allowfullscreen></iframe>
   <iframe class="cam" src="https://camstreamer.com/embed/4uy8MbBrGKY0YLTycBf6AqMF6VzhVKrVVS1HMp8u?autoplay=1&mute=1" allow="autoplay" allowfullscreen></iframe>
   <iframe class="cam" src="https://www.ipcamlive.com/player/player.php?alias=maurypeople-main" allow="autoplay" allowfullscreen></iframe>
   <iframe class="cam" src="https://www.ipcamlive.com/player/player.php?alias=nantucket-marina" allow="autoplay" allowfullscreen></iframe>
@@ -43,13 +43,17 @@
   <iframe class="cam" src="https://www.youtube.com/embed/7hS6EgaZTzA?autoplay=1&mute=1&controls=0&rel=0" allow="autoplay" allowfullscreen></iframe>
 
   <script>
-    const cams = document.querySelectorAll('.cam');
-    let index = 0;
-    setInterval(() => {
-      cams[index].classList.remove('active');
-      index = (index + 1) % cams.length;
-      cams[index].classList.add('active');
-    }, 10000); // 10 seconds per stream
+    document.addEventListener("DOMContentLoaded", () => {
+      const cams = document.querySelectorAll(".cam");
+      let index = 0;
+      cams[0].classList.add("active");
+
+      setInterval(() => {
+        cams[index].classList.remove("active");
+        index = (index + 1) % cams.length;
+        cams[index].classList.add("active");
+      }, 10000);
+    });
   </script>
 </body>
 </html>
