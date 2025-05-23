@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>All Cities Live Streams Rotator</title>
+  <meta charset="UTF-8" />
+  <title>Nantucket Live Cams Rotator</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
+      background: black;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
-      background: #000;
-    }
-    #streamContainer {
-      position: relative;
-      width: 100%;
-      height: 100%;
     }
     iframe {
       position: absolute;
@@ -22,61 +18,38 @@
       left: 0;
       width: 100%;
       height: 100%;
-      border: none;
       transform: scale(1.2);
-      transition: opacity 1s ease-in-out;
+      transform-origin: center center;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      border: none;
+      z-index: 0;
+    }
+    iframe.active {
       opacity: 1;
+      z-index: 1;
     }
   </style>
 </head>
 <body>
-  <div id="streamContainer">
-    <iframe id="streamFrame" src="" allow="autoplay; muted" allowfullscreen></iframe>
-  </div>
-  <script>
-    // Combined streams from Nantucket, Fort Worth, and Miami Beach – total 24
-    const streams = [
-      // Nantucket streams:
-      "https://nantucket.net/embed/mainstreet",
-      "https://nha.org/embed/nantucketharbor",
-      "https://livebeaches.com/embed/nantuckettower",
-      "https://nha.org/embed/whalingmuseum",
-      "https://nantucket.net/embed/fountain",
-      "https://nantucket.net/embed/harborview",
-      "https://nha.org/embed/tuckersroofwalk",
-      "https://nantucket.net/embed/greatpoint",
-      // Fort Worth streams:
-      "https://www.fox4news.com/embed/dfw/downtown",
-      "https://livebeachcam.net/embed/texas/fort-worth/cityscape",
-      "https://livebeachcam.net/embed/texas/fort-worth/cowtown",
-      "https://www.outdooractive.com/embed/fort-worth/trinity-dms",
-      "https://www.outdooractive.com/embed/fort-worth/ih35w-spur280",
-      "https://www.outdooractive.com/embed/fort-worth/luella",
-      "https://www.outdooractive.com/embed/fort-worth/pharr",
-      "https://www.outdooractive.com/embed/fort-worth/gardenacres",
-      // Miami Beach streams:
-      "https://www.explorelivewebcams.com/embed/miami-beach/newport-fishing-pier",
-      "https://www.explorelivewebcams.com/embed/miami-beach/eden-roc",
-      "https://www.explorelivewebcams.com/embed/miami-beach/ocean-terrace",
-      "https://www.explorelivewebcams.com/embed/miami-beach/hilton-bentley",
-      "https://www.explorelivewebcams.com/embed/miami-beach/south-beach",
-      "https://www.miamiandbeaches.com/embed/downtown-miami",
-      "https://livebeachcam.net/embed/miami-beach/newscafe",
-      "https://livebeachcam.net/embed/miami-beach/surfline"
-    ];
-    let currentIndex = 0;
-    const iframe = document.getElementById("streamFrame");
-    
-    iframe.src = streams[currentIndex];
+  <!-- ✅ Confirmed embeddable Nantucket livestreams -->
+  <iframe class="cam active" src="https://camstreamer.com/embed/tubHlaTD9DtBfb6wG1aItArYWbCyIs4RMCJiQ7PM?autoplay=1&mute=1" allow="autoplay" allowfullscreen></iframe>
+  <iframe class="cam" src="https://camstreamer.com/embed/4uy8MbBrGKY0YLTycBf6AqMF6VzhVKrVVS1HMp8u?autoplay=1&mute=1" allow="autoplay" allowfullscreen></iframe>
+  <iframe class="cam" src="https://www.ipcamlive.com/player/player.php?alias=maurypeople-main" allow="autoplay" allowfullscreen></iframe>
+  <iframe class="cam" src="https://www.ipcamlive.com/player/player.php?alias=nantucket-marina" allow="autoplay" allowfullscreen></iframe>
+  <iframe class="cam" src="https://www.ipcamlive.com/player/player.php?alias=greatpoint" allow="autoplay" allowfullscreen></iframe>
+  <iframe class="cam" src="https://www.youtube.com/embed/kZxZU0I2M98?autoplay=1&mute=1&controls=0&rel=0" allow="autoplay" allowfullscreen></iframe>
+  <iframe class="cam" src="https://www.youtube.com/embed/kE4L5isGZls?autoplay=1&mute=1&controls=0&rel=0" allow="autoplay" allowfullscreen></iframe>
+  <iframe class="cam" src="https://www.youtube.com/embed/7hS6EgaZTzA?autoplay=1&mute=1&controls=0&rel=0" allow="autoplay" allowfullscreen></iframe>
 
+  <script>
+    const cams = document.querySelectorAll('.cam');
+    let index = 0;
     setInterval(() => {
-      iframe.style.opacity = 0;
-      setTimeout(() => {
-        currentIndex = (currentIndex + 1) % streams.length;
-        iframe.src = streams[currentIndex];
-        iframe.style.opacity = 1;
-      }, 1000);
-    }, 10000);
+      cams[index].classList.remove('active');
+      index = (index + 1) % cams.length;
+      cams[index].classList.add('active');
+    }, 10000); // 10 seconds per stream
   </script>
 </body>
 </html>
